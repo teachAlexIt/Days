@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    #days-container {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .day {
+      width: 20px;
+      height: 20px;
+      margin: 2px;
+      background-color: #3498db;
+    }
+
+    #reset-button {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+  <title>Days Counter</title>
+</head>
+
+<body>
+
+  <div id="days-container"></div>
+  <button id="reset-button">Reset Days</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Check if there is a saved date in the local storage
+      let startDate = localStorage.getItem("startDate");
+
+      // If no date is saved, use the current date
+      if (!startDate) {
+        startDate = new Date().toISOString().split("T")[0];
+        startDate = '2023-11-29';
+        localStorage.setItem("startDate", startDate);
+      }
+      
+
+      // Set the input date to the saved or current date
+      document.getElementById("reset-button").addEventListener("click", function () {
+        startDate = new Date().toISOString().split("T")[0];
+        localStorage.setItem("startDate", startDate);
+        updateDaysCounter();
+      });
+
+      // Function to calculate the number of days between the start date and today
+      function updateDaysCounter() {
+        const daysContainer = document.getElementById("days-container");
+        daysContainer.innerHTML = "";
+
+        const currentDate = new Date();
+        const startTime = new Date(startDate).getTime();
+        const currentTime = currentDate.getTime();
+        const daysDifference = Math.floor((currentTime - startTime) / (1000 * 60 * 60 * 24));
+
+        for (let i = 0; i < daysDifference; i++) {
+          const dayElement = document.createElement("div");
+          dayElement.classList.add("day");
+          daysContainer.appendChild(dayElement);
+        }
+      }
+
+      // Initial call to update the days counter
+      updateDaysCounter();
+      console.log(startDate);
+    });
+    
+  </script>
+</body>
+
+</html>

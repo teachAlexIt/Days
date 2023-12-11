@@ -50,14 +50,16 @@
         startDate = '2023-11-29';
         localStorage.setItem("startDate", startDate);
       }
-      
+
 
       // Set the input date to the saved or current date
       document.getElementById("reset-button").addEventListener("click", function () {
-        alert('Точно?')
-        startDate = new Date().toISOString().split("T")[0];
-        localStorage.setItem("startDate", startDate);
-        updateDaysCounter();
+        let ask = prompt('Точно?');
+        if (ask == 'да') {
+          startDate = new Date().toISOString().split("T")[0];
+          localStorage.setItem("startDate", startDate);
+          updateDaysCounter();
+        }
       });
 
       // Function to calculate the number of days between the start date and today
@@ -81,7 +83,7 @@
       updateDaysCounter();
       console.log(startDate);
     });
-    
+
   </script>
 </body>
 

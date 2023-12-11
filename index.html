@@ -14,6 +14,8 @@
       display: flex;
       flex-wrap: wrap;
       margin-top: 20px;
+      gap: 4px;
+      max-width: 200px;
     }
 
     .day {
@@ -52,6 +54,7 @@
 
       // Set the input date to the saved or current date
       document.getElementById("reset-button").addEventListener("click", function () {
+        alert('Точно?')
         startDate = new Date().toISOString().split("T")[0];
         localStorage.setItem("startDate", startDate);
         updateDaysCounter();
